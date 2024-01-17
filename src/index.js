@@ -1,8 +1,6 @@
 import _ from 'lodash';
 import './style.css';
 
-const container = document.querySelector("#body");
-
 function header() {
     const header = document.createElement('header');
     const nav = document.createElement('nav');
@@ -11,7 +9,6 @@ function header() {
     home.textContent = 'Home';
     home.setAttribute('id', 'home-bar');
     home.classList.add('nav');
-    home.classList.add('open');
     const menu = document.createElement('div');
     menu.textContent = 'Menu';
     menu.setAttribute('id', 'menu-bar');
@@ -58,17 +55,151 @@ function footer() {
     return footer;
 }
 
+function close() {
+    homeBar.classList.remove('open')
+    menuBar.classList.remove('open')
+    contactBar.classList.remove('open')
+    content.innerHTML = '';
+}
+
 function home() {
+    const openHour = [
+        'monday: 9am - 6pm',
+        'tuesday: 9am - 6pm',
+        'wednesday: 9am - 6pm',
+        'thursday: 9am - 6pm',
+        'friday: Closed',
+        'saturday: 9am - 6pm',
+        'sunday: 9am - 6pm',
+    ];
+
+    close();
+    homeBar.classList.add('open');
+    const title = document.createElement('div');
+    title.textContent = 'Restaurant Name';
+    title.setAttribute('id', 'title');
+    title.classList.add('content');
+    const description = document.createElement('div');
+    description.textContent = 'Description about the restaurant';
+    description.setAttribute('id', 'description');
+    description.classList.add('content');
+    const hourly = document.createElement('div');
+    hourly.textContent = 'Open Hour';
+    hourly.setAttribute('id', 'Hourly');
+    hourly.classList.add('content');
+    const unOrder = document.createElement('ul');
+    hourly.appendChild(unOrder);
+    for (let i = 0; i < openHour.length; i++) {
+        const list = document.createElement('li');
+        list.textContent = openHour[i];
+        list.classList.add('list');
+        unOrder.appendChild(list);
+    }
+
+    content.append(title, description, hourly);
 
 }
 
 function menu() {
+    const foodMenu = [
+        {
+            food: 'Food Name',
+            img: '#',
+            description: 'Description about the food'
+        },
+        {
+            food: 'Food Name',
+            img: '#',
+            description: 'Description about the food'
+        },
+        {
+            food: 'Food Name',
+            img: '#',
+            description: 'Description about the food'
+        },
+        {
+            food: 'Food Name',
+            img: '#',
+            description: 'Description about the food'
+        },
+        {
+            food: 'Food Name',
+            img: '#',
+            description: 'Description about the food'
+        },
+        {
+            food: 'Food Name',
+            img: '#',
+            description: 'Description about the food'
+        },
+    ]
 
+    close()
+    menuBar.classList.add('open');
+    const title = document.createElement('div');
+    title.textContent = 'Menu List'
+    title.setAttribute('id', 'title');
+    title.classList.add('content');
+    const menu = document.createElement('div');
+    menu.setAttribute('id', 'menu');
+    for (let i = 0; i < foodMenu.length; i++) {
+        const food = document.createElement('div');
+        food.classList.add('menu');
+        const foodName = document.createElement('div');
+        foodName.textContent = foodMenu[i].food;
+        const foodImg = document.createElement('img');
+        foodImg.src = foodMenu[i].img;
+        foodImg.alt = foodMenu[i].img;
+        foodImg.classList.add('img-menu');
+        const foodDesc = document.createElement('div');
+        foodDesc.textContent = foodMenu.description;
+        foodDesc.classList.add('menu-description');
+        food.append(foodName, foodImg, foodDesc);
+        menu.appendChild(food);
+    }
+
+
+    content.append(title, menu);
 }
 
-function content() {
+function contact() {
 
+    close()
+    contactBar.classList.add('open');
+    const title = document.createElement('div');
+    title.textContent = 'Contact Information'
+    title.setAttribute('id', 'title');
+    title.classList.add('content');
+    const info = document.createElement('div');
+    info.classList.add('content');
+    info.setAttribute('id', "info")
+    const info1 = document.createElement('div');
+    const info2 = document.createElement('div');
+    const info3 = document.createElement('div');
+    info1.textContent = 'Contact us for reservation';
+    info2.textContent = 'Phone: Phone Number';
+    info3.textContent = 'E-mail: E-mail';
+    info.append(info1, info2, info3);
+
+    content.append(title, info);
 }
 
-container.appendChild(header());
-container.appendChild(footer());
+document.body.appendChild(header());
+document.body.appendChild(footer());
+
+const content = document.querySelector('#content');
+const homeBar = document.querySelector('#home-bar');
+const menuBar = document.querySelector('#menu-bar');
+const contactBar = document.querySelector('#contact-bar');
+
+home();
+
+homeBar.addEventListener('click', function () {
+    home();
+});
+menuBar.addEventListener('click', function () {
+    menu();
+});
+contactBar.addEventListener('click', function () {
+    contact();
+});
